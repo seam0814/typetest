@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://seam0814.github.io/typetest/sitemap.xml
