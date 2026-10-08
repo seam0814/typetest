@@ -10,7 +10,7 @@
   window.store={get:function(k,d){try{var v=localStorage.getItem("tz_"+k);return v===null?d:v}catch(e){return d}},set:function(k,v){try{localStorage.setItem("tz_"+k,v)}catch(e){}}};
 
   var TESTS=[
-    {path:"animal/", ic:"🐶", title:"나의 동물상", desc:"질문으로 보는 내 얼굴상", pop:true}
+    {path:"animal/", ic:"", title:"나의 동물상", desc:"질문으로 보는 내 얼굴상", pop:true}
   ];
   window.TESTS=TESTS; window.SITE_NAME='테스트<span>집</span>';
   function h(s){var d=document.createElement("div");d.innerHTML=s.trim();return d.firstChild}
@@ -32,12 +32,12 @@
     x.fillStyle="rgba(255,255,255,0.14)";rr(x,70,190,W-140,H-380,44);x.fill();
     x.textAlign="center";x.fillStyle="#fff";
     x.font="700 46px Jua, sans-serif";x.fillText("테스트집",W/2,140);
-    x.font="190px sans-serif";x.fillText(o.emoji||"🐶",W/2,470);
+    x.font="190px sans-serif";x.fillText(o.emoji||"",W/2,470);
     x.font="800 80px Jua, sans-serif";var yy=wrapC(x,o.title||"",W/2,600,W-240,96);
     x.font="400 42px sans-serif";x.fillStyle="rgba(255,255,255,.95)";(o.lines||[]).forEach(function(ln){yy=wrapC(x,ln,W/2,yy+24,W-260,58)});
     x.font="600 36px Jua, sans-serif";x.fillStyle="rgba(255,255,255,.92)";x.fillText("seam0814.github.io/typetest",W/2,H-90);
     c.toBlob(function(blob){if(!blob)return;var f=null;try{f=new File([blob],"test.png",{type:"image/png"})}catch(e){}
-      if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:o.share||"내 결과 ✨"}).then(function(){track("card_share")}).catch(function(){});}
+      if(f&&navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],text:o.share||"내 결과 "}).then(function(){track("card_share")}).catch(function(){});}
       else{var u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="테스트집.png";a.click();setTimeout(function(){URL.revokeObjectURL(u)},1000);track("card_download")}},"image/png");
   };
 
@@ -60,7 +60,7 @@
       var best=null,bv=-1;for(var k in scores){if(scores[k]>bv){bv=scores[k];best=k}}
       var r=cfg.results[best];track("test_done",{type:best});
       root.innerHTML='<div class="rtype"><div class="remoji">'+r.emoji+'</div><h2>'+r.title+'</h2><p>'+r.desc+'</p></div>'
-        +'<button class="btn" id="qshare">📸 결과 이미지로 저장·공유</button><button class="btn sec" id="qagain">다시 하기</button>';
+        +'<button class="btn" id="qshare"> 결과 이미지로 저장·공유</button><button class="btn sec" id="qagain">다시 하기</button>';
       document.getElementById("qagain").addEventListener("click",function(){idx=0;for(var k in scores)scores[k]=0;render()});
       document.getElementById("qshare").addEventListener("click",function(){shareCard({emoji:r.emoji,title:r.title,lines:[cfg.title],share:cfg.title+" 결과 → "+r.title+" "+r.emoji+" 너도 해봐!"})});
       try{root.scrollIntoView({behavior:"smooth",block:"nearest"})}catch(e){}
