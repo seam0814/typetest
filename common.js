@@ -1,5 +1,7 @@
 (function(){
   var ROOT=window.SITE_ROOT||"./";
+  var EMB=false;try{EMB=window.self!==window.top}catch(e){EMB=true}
+  window.EMB=EMB;if(EMB)document.documentElement.classList.add("embed");
   (function(){var l=document.createElement("link");l.rel="stylesheet";
     l.href="https://fonts.googleapis.com/css2?family=Jua&display=swap";document.head.appendChild(l);})();
   var GA_ID="G-3WT6016LYF",CLARITY_ID="";
@@ -16,6 +18,7 @@
   function h(s){var d=document.createElement("div");d.innerHTML=s.trim();return d.firstChild}
   var head=document.getElementById("site-header");
   if(head){head.className="sitehead";head.appendChild(h('<a class="brand" href="'+ROOT+'">'+window.SITE_NAME+'</a>'));head.appendChild(h('<a class="home" href="'+ROOT+'">← 전체 테스트</a>'))}
+  if(EMB){[].forEach.call(document.querySelectorAll("[data-e]"),function(el){el.textContent=el.getAttribute("data-e")})}
   var foot=document.getElementById("site-footer");
   if(foot){foot.className="sitefoot";var links=TESTS.map(function(t){return '<a href="'+ROOT+t.path+'">'+t.title+'</a>'}).join("");
     foot.appendChild(h('<div class="fnav">'+links+'</div>'));
@@ -49,7 +52,7 @@
       if(idx>=cfg.questions.length)return finish();
       var q=cfg.questions[idx],pct=Math.round(idx/cfg.questions.length*100);
       var html='<div class="progress"><div class="bar" style="width:'+pct+'%"></div></div>';
-      html+='<div class="qnum">Q'+(idx+1)+' / '+cfg.questions.length+'</div><div class="q">'+q.q+'</div><div class="opts">';
+      html+='<div class="qnum">'+(EMB?'문항 ':'Q')+(idx+1)+' / '+cfg.questions.length+'</div><div class="q">'+q.q+'</div><div class="opts">';
       q.opts.forEach(function(o,i){html+='<button class="opt" data-i="'+i+'">'+o.t+'</button>'});
       html+='</div>';root.innerHTML=html;
       root.querySelector(".opts").addEventListener("click",function(e){var b=e.target;if(!b.classList.contains("opt"))return;
@@ -59,10 +62,10 @@
     function finish(){
       var best=null,bv=-1;for(var k in scores){if(scores[k]>bv){bv=scores[k];best=k}}
       var r=cfg.results[best];track("test_done",{type:best});
-      root.innerHTML='<div class="rtype"><div class="remoji">'+r.emoji+'</div><h2>'+r.title+'</h2><p>'+r.desc+'</p></div>'
-        +'<button class="btn" id="qshare"> 결과 이미지로 저장·공유</button><button class="btn sec" id="qagain">다시 하기</button>';
+      root.innerHTML='<div class="rtype">'+(EMB?'<div class="qnum">진단 결과</div>':'')+'<div class="remoji">'+r.emoji+'</div><h2>'+(EMB?r.title.replace(/상$/,"형"):r.title)+'</h2><p>'+r.desc+'</p></div>'
+        +(EMB?'':'<button class="btn" id="qshare"> 결과 이미지로 저장·공유</button>')+'<button class="btn sec" id="qagain">'+(EMB?'다시 응답':'다시 하기')+'</button>';
       document.getElementById("qagain").addEventListener("click",function(){idx=0;for(var k in scores)scores[k]=0;render()});
-      document.getElementById("qshare").addEventListener("click",function(){shareCard({emoji:r.emoji,title:r.title,lines:[cfg.title],share:cfg.title+" 결과 → "+r.title+" "+r.emoji+" 너도 해봐!"})});
+      var qs=document.getElementById("qshare");if(qs)qs.addEventListener("click",function(){shareCard({emoji:r.emoji,title:r.title,lines:[cfg.title],share:cfg.title+" 결과 → "+r.title+" "+r.emoji+" 너도 해봐!"})});
       try{root.scrollIntoView({behavior:"smooth",block:"nearest"})}catch(e){}
     }
     render();

@@ -52,3 +52,25 @@ details p{color:var(--muted);margin:.5em 0 0}
 .sitefoot{margin-top:44px;padding-top:20px;border-top:1px solid var(--border);font-size:.84rem;color:var(--muted)}
 .sitefoot .fnav{display:flex;flex-wrap:wrap;gap:10px 16px;margin-bottom:10px}
 .sitefoot a{color:var(--muted);text-decoration:none}.sitefoot a:hover{color:var(--accent)}
+
+/* ===== 대시보드 안(iframe) 업무 설문 모드 ===== */
+html.embed body{background:#fff;font-family:"Calibri","맑은 고딕","Malgun Gothic",sans-serif;font-size:12px;line-height:1.5;color:#222}
+html.embed .wrap{max-width:none;padding:0 0 16px;margin:0}
+html.embed #site-header,html.embed #site-footer,html.embed .copy,html.embed .disc{display:none !important}
+html.embed h1{font-family:inherit;font-size:13px;margin:0;padding:6px 12px;background:#eaf1fb;color:#1e4e8c;border-bottom:1px solid #d4d4d4}
+html.embed p.sub{font-size:11px;margin:0;padding:4px 12px;color:#666;border-bottom:1px solid #d4d4d4;background:#fafafa}
+html.embed .tool{border:0;border-radius:0;box-shadow:none;padding:10px 12px;background:#fff}
+html.embed .progress{height:4px;border-radius:0;margin-bottom:8px;background:#e6e6e6}
+html.embed .progress .bar{background:#2b579a}
+html.embed .qnum{font-family:inherit;font-size:11px;color:#2b579a;margin-bottom:2px}
+html.embed .q{font-family:inherit;font-size:13px;font-weight:700;margin:0 0 8px}
+html.embed .opts{gap:0;border:1px solid #d4d4d4;max-width:480px}
+html.embed .opt{font-size:12px;padding:6px 10px;border:0;border-bottom:1px solid #e6e6e6;border-radius:0;transform:none !important}
+html.embed .opt:last-child{border-bottom:0}
+html.embed .opt:hover{background:#eaf1fb;border-color:#e6e6e6}
+html.embed .opt::before{content:"○ ";color:#999}
+html.embed .rtype{text-align:left;padding:0}
+html.embed .rtype h2{font-family:inherit;font-size:14px;color:#2b579a;margin:2px 0 4px}
+html.embed .rtype p{font-size:12px;max-width:480px}
+html.embed .btn{display:inline-block;width:auto;padding:4px 14px;font-size:12px;border-radius:2px;margin-top:8px;font-family:inherit}
+html.embed .btn.sec{border:1px solid #d4d4d4;color:#2b579a}
